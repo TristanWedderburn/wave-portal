@@ -7,6 +7,7 @@ const main = async () => {
     await waveContract.deployed(); // wait for contract to be deployed
     console.log(`Deployed to ${waveContract.address}, by ${owner.address}`);
 
+    await waveContract.getTopWaver();
 
     // Running as owner.
     let waveCount;
@@ -17,11 +18,15 @@ const main = async () => {
 
     waveCount = await waveContract.getTotalWaves();
 
+    await waveContract.getTopWaver();
+
     // Running as other person.
     waveTxn = await waveContract.connect(randomPerson).wave();
     await waveTxn.wait();
 
     waveCount = await waveContract.getTotalWaves();
+
+    await waveContract.getTopWaver();
 }
 
 const runMain = async () => {
